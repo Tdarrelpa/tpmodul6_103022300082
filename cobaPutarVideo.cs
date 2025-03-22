@@ -13,12 +13,30 @@ namespace cobaPutarVideo
             Random rnd = new Random(); // Membuat objek random baru untuk menghasilkan angka acak
             this.id = rnd.Next(00000, 99999); // Buat nomor acak antara 00000 dan 99999 secara otomatis (inlkusif)
             this.title = title;
+            if(string.IsNullOrEmpty(title) || title.Length > 100) // Jika judul video kosong atau lebih dari 100 karakter
+            {
+                throw new ArgumentException("Title must not be empty and must be less than 100 characters"); // Lempar pengecualian dengan pesan error
+            }
             this.playCount = 0; // Tetapkan playCount ke 0
         }
 
         public void increasePlayCount(int playCount)
         {
-            this.playCount += playCount; // Tambahkan playCount dengan jumlah yang diberikan
+            try 
+            {
+                checked 
+                {
+                    if (playCount < 0 || playCount > 10000000) 
+                    {
+                        throw new ArgumentException(playCount + " is not a valid play count. Play count must be between 0 and 10,000,000"); // Lempar pengecualian dengan pesan error
+                    }
+                    this.playCount += playCount; // Tambahkan playCount dengan jumlah yang diberikan
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void printVideoDetails()
