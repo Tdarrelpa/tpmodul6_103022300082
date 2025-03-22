@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Diagnostics.Contracts;
 
 namespace cobaPutarVideo 
 {
@@ -13,14 +13,14 @@ namespace cobaPutarVideo
             Random rnd = new Random(); // Membuat objek random baru untuk menghasilkan angka acak
             this.id = rnd.Next(00000, 99999); // Buat nomor acak antara 00000 dan 99999 secara otomatis (inlkusif)
             this.title = title;
-            if(string.IsNullOrEmpty(title) || title.Length > 100) // Jika judul video kosong atau lebih dari 100 karakter
-            {
-                throw new ArgumentException("Title must not be empty and must be less than 100 characters"); // Lempar pengecualian dengan pesan error
-            }
+
+            Contract.Requires(!string.IsNullOrEmpty(title), "Title must not be empty."); // Pastikan judul tidak kosong
+            Contract.Requires(title.Length <= 100, "Title must be less than or equal to 100 characters."); // Pastikan judul tidak lebih dari 100 karakter
+
             this.playCount = 0; // Tetapkan playCount ke 0
         }
 
-        public void increasePlayCount(int playCount)
+        public void IncreasePlayCount(int playCount)
         {
             try 
             {
@@ -39,7 +39,7 @@ namespace cobaPutarVideo
             }
         }
 
-        public void printVideoDetails()
+        public void PrintVideoDetails()
         {
             //Console.WriteLine("Video ID: " + this.id); <- Cetak ID video
             Console.WriteLine($"Video ID: {id}");
