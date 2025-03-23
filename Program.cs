@@ -8,7 +8,8 @@ public class Program
         SayaTubeVideo video1 = new SayaTubeVideo("Tutorial Design By Contract – Timotius Darrel");
         for (int i = 0; i < 5; i++) // Menguji error overflow
         {
-            video1.IncreasePlayCount(3000000); // Seharusnya tidak menyebabkan error overflow
+            video1.IncreasePlayCount(300000); // Tidak akan menyebabkan error overflow
+            //video1.IncreasePlayCount(3000000); <- Akan menyebabkan error overflow
         }
         video1.PrintVideoDetails();
     }

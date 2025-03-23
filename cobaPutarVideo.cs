@@ -26,9 +26,9 @@ namespace cobaPutarVideo
             {
                 checked 
                 {
-                    if (playCount < 0 || playCount > 10000000) 
+                    if (this.playCount < 0 || this.playCount > 10000000) // Tujuan dari if-else ini bukan melacak playCount input (variable lokal method) melainkan output jumlah playCount (attribute class)
                     {
-                        throw new ArgumentException(playCount + " is not a valid play count. Play count must be between 0 and 10,000,000"); // Lempar pengecualian dengan pesan error
+                        throw new ArgumentException(this.playCount + " is not a valid play count. Play count must be between 0 and 10,000,000"); // Lempar pengecualian dengan pesan error (attribute class, bukan variabel lokal)
                     }
                     this.playCount += playCount; // Tambahkan playCount dengan jumlah yang diberikan
                 }
@@ -36,6 +36,7 @@ namespace cobaPutarVideo
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                this.playCount = 0; // Tetapkan playCount ke 0 jika terjadi error
             }
         }
 
